@@ -11,18 +11,20 @@ on:
 
 jobs:
   build:
+    permissions:
+      contents: write
     runs-on: ubuntu-latest
     name: generate-github-profile-3d-contrib
     steps:
       - uses: actions/checkout@v2
       - uses: yoshi389111/github-profile-3d-contrib@0.2.0
         env:
-          GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           USERNAME: sat-thu-pic
       - name: Commit & Push
         run: |
           git config user.name sat-thu-pic
           git config user.email nguyenhuyhieu2004abc@gmail.com
           git add -A .
-          git commit -m "Sunday the King plays - I'm back, I'm back - Factos 👍👀 - 😂😂😂"
+          git diff --quiet --cached || git commit -m "Sunday the King plays - I'm back, I'm back - Factos 👍👀 - 😂😂😂"
           git push
